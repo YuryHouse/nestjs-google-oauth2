@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { GoogleUser } from './sequelize/models/google-user';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { GoogleUser } from './sequelize/models/google-user';
       synchronize: true,
       autoLoadModels: true,
     }),
+    PassportModule.register({ session: true }),
     AuthModule,
   ],
   controllers: [AppController],

@@ -20,4 +20,7 @@ export class AuthService {
     console.log('User not found. Creating...');
     return this.userModel.create(details);
   }
+  async findGoogleUser(id: number) {
+    return await this.userModel.findOne({ where: { id } });
+  }
 }

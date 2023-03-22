@@ -4,13 +4,15 @@ import { GoogleStrategy } from './utils/GoogleStrategy';
 import { AuthService } from './auth.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { GoogleUser } from '../sequelize/models/google-user';
+import { SessionSerializer } from './utils/Serializer';
 
 @Module({
   imports: [SequelizeModule.forFeature([GoogleUser])],
   controllers: [AuthController],
   providers: [
     GoogleStrategy,
-    AuthService,
+    SessionSerializer,
+    // AuthService,
     {
       provide: 'AUTH_SERVICE',
       useClass: AuthService,

@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { GoogleUser } from './sequelize/models/google-user';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
       username: 'postgres',
       password: 'root',
       database: 'nestjs_google_oauth2',
-      models: [],
+      models: [GoogleUser],
       synchronize: true,
       autoLoadModels: true,
     }),

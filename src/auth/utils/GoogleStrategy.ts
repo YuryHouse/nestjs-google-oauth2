@@ -1,10 +1,13 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-google-oauth20';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(
+    @Inject('AUTH_SERVICE') private readonly authService: AuthService,
+  ) {
     super({
       clientID:
         '852006515989-i92htgnjunbe1q9959nbgjhmlaeu8e5v.apps.googleusercontent.com',
@@ -17,5 +20,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     console.log(accessToken);
     console.log(refreshToken);
     console.log(profile);
+    const googleUser = await this.authService.validateGoogleUser({
+      email: profile.emails[0].value,
+      displayName: profile.displayName,
+      photo: profile.photos[0].value,
+    });
+    return googleUser || null;
   }
 }

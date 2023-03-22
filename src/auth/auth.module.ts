@@ -1,9 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { GoogleStrategy } from './utils/GoogleStrategy';
+import { AuthService } from './auth.service';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { GoogleUser } from '../sequelize/models/google-user';
 
 @Module({
+  imports: [SequelizeModule.forFeature([GoogleUser])],
   controllers: [AuthController],
-  providers: [GoogleStrategy],
+  providers: [
+    GoogleStrategy,
+    AuthService,
+    {
+      provide: 'AUTH_SERVICE',
+      useClass: AuthService,
+    },
+  ],
 })
 export class AuthModule {}

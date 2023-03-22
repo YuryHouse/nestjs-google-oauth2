@@ -13,6 +13,13 @@ export class GoogleUser extends Model {
   @Column({
     type: DataType.STRING,
     unique: true,
+    primaryKey: true,
+  })
+  googleId: string;
+
+  @Column({
+    type: DataType.STRING,
+    unique: true,
   })
   email: string;
 
